@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color:#FFFEF8 ;
 }
 ol, ul {
 	list-style: none;
@@ -88,7 +89,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	
 }
 nav li {
 	padding: 0 10px;
@@ -183,7 +184,9 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	padding: 2em;
+	background-color:white;
+	margin-top: 10%;
 }
 
 #filter-menu {
@@ -196,14 +199,25 @@ footer nav ul {
 #filter-menu button {
     margin: 0 5px;
 	border: 1px solid #1D6154;
-	padding: 5px;
-	margin: 5px;
+	padding: 10px 35px;
 	border-radius: 25px;
 	color: #1D6154;
 	text-decoration: none;
 	cursor: pointer;
+	background-color: #FFFEF8;
 }
 #filter-menu button:hover{
 	background-color: #1D6154;
 	color: white;
+}
+.forgot-password {
+	text-align:center;
+}
+.forgot-password a{
+	color: #000;
+}
+#login-link {
+	color:#000;
+	text-decoration: none;
+    font-weight: bold;
 }
