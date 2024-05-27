@@ -124,8 +124,8 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -220,4 +220,57 @@ footer nav ul {
 	color:#000;
 	text-decoration: none;
     font-weight: bold;
+	font-size: 16px;
+}
+#modifier {
+	display: none;
+	border: none; /* Ajoutez cette ligne pour enlever la bordure */
+	background-color: #FFFEF8;
+	
+}
+.add-modifier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	gap:20px;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 80%; /* ou une autre largeur selon votre préférence */
+    max-width: 600px; /* ou une autre valeur selon votre préférence */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.modal-content img {
+    width: calc(20% - 20px); /* Pour afficher 5 images par ligne avec un espace entre elles */
+    margin-bottom: 20px; /* Ajoutez un espacement entre les lignes d'images */
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
