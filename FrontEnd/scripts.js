@@ -1,12 +1,10 @@
-// DOMContentLoaded event listener
+
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.getElementById('gallery');
     const filterMenu = document.getElementById('filter-menu');
     const modal = document.getElementById('modal');
-    const addProjectButton = document.getElementById('add-project-button');
     const modifierButton = document.getElementById('modifier');
     const closeModalButton = document.querySelector('.close');
-    const addProjectForm = document.getElementById('add-project-form');
     const authToken = localStorage.getItem('authToken');
 
     if (authToken) {
@@ -28,10 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Projets récupérés:', projects);
             displayProjects(projects);
             createFilterMenu(projects);
+            populateModal(projects);
+            moveAddButton();
         })
         .catch(error => console.error('Erreur lors de la récupération des projets :', error));
 
-    // Affichage des projets
+    // Affichage des projets gallery
     function displayProjects(projects) {
         gallery.innerHTML = '';
         projects.forEach(project => {
@@ -85,67 +85,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Ajout de projet
-    addProjectForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(addProjectForm);
-        const projectTitle = formData.get('project-title');
-        const projectImage = formData.get('project-image');
-
-        if (!projectTitle || !projectImage) {
-            alert('Veuillez remplir tous les champs.');
-            return;
-        }
-
-        fetch('http://localhost:5678/api/works', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(newProject => {
-            console.log('Nouveau projet ajouté:', newProject);
-            gallery.appendChild(createProjectElement(newProject));
-            modal.style.display = 'none';
-            addProjectForm.reset();
-        })
-        .catch(error => console.error('Erreur lors de l\'ajout du projet:', error));
-    });
-
-    // Création d'un élément projet
-    function createProjectElement(project) {
-        const figure = document.createElement('figure');
-        figure.innerHTML = `
-            <img src="${project.imageUrl}" alt="${project.title}">
-            <figcaption>${project.title}</figcaption>
-            <button class="delete-project-button" data-id="${project.id}">Supprimer</button>
-        `;
-        figure.querySelector('.delete-project-button').addEventListener('click', function() {
-            deleteProject(project.id);
+    // modale avec les images des projets
+    function populateModal(projects) {
+        const modalContent = modal.querySelector('.modal-content');
+        projects.forEach(project => {
+            const img = document.createElement('img');
+            img.src = project.imageUrl;
+            img.alt = project.title;
+            modalContent.appendChild(img);
         });
-        return figure;
     }
 
-    // Suppression de projet
-    function deleteProject(projectId) {
-        fetch(`http://localhost:5678/api/works/${projectId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                const projectElement = document.querySelector(`button[data-id="${projectId}"]`).parentElement;
-                projectElement.remove();
-                console.log('Projet supprimé:', projectId);
-            } else {
-                console.error('Erreur lors de la suppression du projet:', response.statusText);
-            }
-        })
-        .catch(error => console.error('Erreur lors de la suppression du projet:', error));
-    }    
+   
 });
