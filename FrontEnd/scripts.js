@@ -97,17 +97,25 @@ document.addEventListener('DOMContentLoaded', function() {
             img.alt = project.title;
             modalContent.appendChild(img);
         });
+         // Créer une div pour contenir le bouton "Ajouter une photo"
+    const addButtonContainer = document.createElement('div');
+    addButtonContainer.classList.add('add-photo-button-container');
+
         // Créer le bouton "Ajouter une photo"
     const addButton = document.createElement('button');
     addButton.textContent = "Ajouter une photo";
+    addButton.classList.add('button-ajouter-photo');
     addButton.addEventListener('click', function() {
 
         console.log("Bouton 'Ajouter une photo' cliqué");
     });
 
-    // Ajouter le bouton "Ajouter une photo" à la modal
-    modalContent.appendChild(addButton);
-    }
+    // Ajouter le bouton "Ajouter une photo" à la div
+    addButtonContainer.appendChild(addButton);
+
+    // Ajouter la div au contenu modal
+    modalContent.appendChild(addButtonContainer);
+}
 
    
 });

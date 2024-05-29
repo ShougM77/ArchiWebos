@@ -246,14 +246,14 @@ footer nav ul {
 .modal-content {
     position: relative;
     background-color: #fff;
-    padding: 60px;
+    padding: 50px 76px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
    
 }
 
 .modal-content img {
-    width: 17%;
+    width: 16%;
     padding: 7px;
 }
 
@@ -264,10 +264,24 @@ footer nav ul {
     right: 10px;
     cursor: pointer;
 }
-#titlegaleriePhotos {
+.titlegaleriePhotos {
 	text-align: center;
+	padding-bottom: 40px;
+	font-size: 26px;
 }
-#modal-gallery {
-	border-bottom: 1px solid black;
-    padding-bottom: 10px;
+.add-photo-button-container {
+	border-top: 1px solid #B3B3B3 ;
+	padding-top:40px;
+	margin-top:40px;
+	text-align: center;
+	
+}
+.button-ajouter-photo {
+    background-color: #1D6154;
+    color: white;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 10px 38px;
+    font-size: 16px;
+    cursor: pointer;
 }
