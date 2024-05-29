@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.getElementById('gallery');
     const filterMenu = document.getElementById('filter-menu');
@@ -15,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginLink = document.getElementById('login-link');
     if (authToken) {
         loginLink.textContent = 'Logout';
+        loginLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.removeItem('authToken');
+            window.location.href = 'index.html';
+        });
     } else {
         loginLink.textContent = 'Login';
     }
@@ -27,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
             displayProjects(projects);
             createFilterMenu(projects);
             populateModal(projects);
-            moveAddButton();
         })
         .catch(error => console.error('Erreur lors de la récupération des projets :', error));
 
@@ -94,6 +97,16 @@ document.addEventListener('DOMContentLoaded', function() {
             img.alt = project.title;
             modalContent.appendChild(img);
         });
+        // Créer le bouton "Ajouter une photo"
+    const addButton = document.createElement('button');
+    addButton.textContent = "Ajouter une photo";
+    addButton.addEventListener('click', function() {
+
+        console.log("Bouton 'Ajouter une photo' cliqué");
+    });
+
+    // Ajouter le bouton "Ajouter une photo" à la modal
+    modalContent.appendChild(addButton);
     }
 
    
