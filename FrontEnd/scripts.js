@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Sélection des éléments HTML nécessaires
     const gallery = document.getElementById('gallery');
     const filterMenu = document.getElementById('filter-menu');
-    const modal = document.getElementById('modal');
+    const photoModal = document.getElementById('modal');
+    const modalGallery = document.getElementById('modal-gallery');
+    const addPhotoModal = document.getElementById('addPhotoModal');
     const modifierButton = document.getElementById('modifier');
-    const closeModalButton = document.querySelector('.close');
+    const closeModalButtons = document.querySelectorAll('.close');
     const authToken = localStorage.getItem('authToken');
 
+    // Afficher le bouton "modifier" si un token d'authentification est présent
     if (authToken) {
-        // Afficher le bouton "modifier" s'il y a un token d'authentification
         modifierButton.style.display = 'inline';
     }
-    // Changer le texte du lien de connexion en fonction de la présence du token
+
+    // Changer le texte du lien de connexion et gérer la déconnexion
     const loginLink = document.getElementById('login-link');
     if (authToken) {
         loginLink.textContent = 'Logout';
@@ -23,36 +27,37 @@ document.addEventListener('DOMContentLoaded', function() {
         loginLink.textContent = 'Login';
     }
 
-    // Récupération du site
+    // Récupération des projets depuis l'API
     fetch('http://localhost:5678/api/works')
         .then(response => response.json())
         .then(projects => {
             console.log('Projets récupérés:', projects);
-            displayProjects(projects);
-            createFilterMenu(projects);
-            populateModal(projects);
+            displayProjects(projects); 
+            createFilterMenu(projects); 
+            populateModal(projects); 
         })
         .catch(error => console.error('Erreur lors de la récupération des projets :', error));
 
-    // Affichage des projets gallery
+    // Affichage des projets dans la galerie principale
     function displayProjects(projects) {
-        gallery.innerHTML = '';
+        gallery.innerHTML = ''; 
         projects.forEach(project => {
             const figure = document.createElement('figure');
             figure.innerHTML = `
                 <img src="${project.imageUrl}" alt="${project.title}">
                 <figcaption>${project.title}</figcaption>
             `;
-            gallery.appendChild(figure);
+            gallery.appendChild(figure); 
         });
     }
 
     // Création du menu de filtres
     function createFilterMenu(projects) {
         const categories = new Set(projects.map(project => project.category.name));
-        categories.add('Tous');
-        filterMenu.innerHTML = '';
+        categories.add('Tous'); 
+        filterMenu.innerHTML = ''; 
 
+        // Bouton pour afficher tous les projets
         const allButton = document.createElement('button');
         allButton.textContent = 'Tous';
         allButton.addEventListener('click', () => {
@@ -60,62 +65,122 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         filterMenu.appendChild(allButton);
 
+        // Créer un bouton pour chaque catégorie
         categories.forEach(category => {
             if (category !== 'Tous') {
                 const button = document.createElement('button');
                 button.textContent = category;
                 button.addEventListener('click', () => {
                     const filteredProjects = projects.filter(project => project.category.name === category);
-                    displayProjects(filteredProjects);
+                    displayProjects(filteredProjects); 
                 });
                 filterMenu.appendChild(button);
             }
         });
     }
 
-    // Ouverture et fermeture de la modale
+    // Gestion de l'ouverture de la modale
     modifierButton.addEventListener('click', function() {
-        modal.style.display = 'block';
+        photoModal.style.display = 'block'; 
     });
 
-    closeModalButton.addEventListener('click', function() {
-        modal.style.display = 'none';
+    // Gestion de la fermeture des modales
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            photoModal.style.display = 'none';
+            addPhotoModal.style.display = 'none';
+        });
     });
 
+    // Fermeture des modales lorsque l'utilisateur clique en dehors du contenu de la modale
     window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === photoModal || event.target === addPhotoModal) {
+            photoModal.style.display = 'none';
+            addPhotoModal.style.display = 'none';
         }
     });
 
-    // modale avec les images des projets
+    // Ajout des images des projets dans la modale avec des icônes de poubelle
     function populateModal(projects) {
-        const modalContent = modal.querySelector('.modal-content');
+        modalGallery.innerHTML = ''; 
         projects.forEach(project => {
+            const photoContainer = document.createElement('div');
+            photoContainer.className = 'photo-container';
+
             const img = document.createElement('img');
             img.src = project.imageUrl;
             img.alt = project.title;
-            modalContent.appendChild(img);
+
+            const trashIcon = document.createElement('i');
+            trashIcon.className = 'fa-solid fa-trash-can';
+            trashIcon.addEventListener('click', () => deletePhoto(project.id, photoContainer));
+
+            photoContainer.appendChild(img);
+            photoContainer.appendChild(trashIcon);
+            modalGallery.appendChild(photoContainer); 
         });
-         // Créer une div pour contenir le bouton "Ajouter une photo"
-    const addButtonContainer = document.createElement('div');
-    addButtonContainer.classList.add('add-photo-button-container');
 
-        // Créer le bouton "Ajouter une photo"
-    const addButton = document.createElement('button');
-    addButton.textContent = "Ajouter une photo";
-    addButton.classList.add('button-ajouter-photo');
-    addButton.addEventListener('click', function() {
+        // Ajouter un bouton "Ajouter une photo" dans la modale
+        const addButtonContainer = document.createElement('div');
+        addButtonContainer.classList.add('add-photo-button-container');
 
-        console.log("Bouton 'Ajouter une photo' cliqué");
+        const addButton = document.createElement('button');
+        addButton.textContent = "Ajouter une photo";
+        addButton.classList.add('button-ajouter-photo');
+        addButton.addEventListener('click', function() {
+            addPhotoModal.style.display = 'block'; 
+        });
+
+        addButtonContainer.appendChild(addButton);
+        modalGallery.appendChild(addButtonContainer);
+    }
+
+    // Gestion formulaire pour ajouter une photo
+    const addPhotoForm = document.getElementById('addPhotoForm');
+    addPhotoForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(addPhotoForm);
+        //  ajouter les fichiers form data
+
+        fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(newProject => {
+            console.log('Nouveau projet ajouté:', newProject);
+            addPhotoModal.style.display = 'none';
+            // Actualiser la liste des projets    
+            fetch('http://localhost:5678/api/works') 
+                .then(response => response.json())
+                .then(projects => {
+                    displayProjects(projects);
+                    populateModal(projects);
+                });
+        })
+        .catch(error => console.error('Erreur ajout du projet :', error));
     });
 
-    // Ajouter le bouton "Ajouter une photo" à la div
-    addButtonContainer.appendChild(addButton);
-
-    // Ajouter la div au contenu modal
-    modalContent.appendChild(addButtonContainer);
-}
-
-   
+    // Fonction pour gérer la suppression des photos
+    function deletePhoto(photoId, photoContainer) {
+        // Envoyer une requête DELETE à l'API pour supprimer la photo
+        fetch(`http://localhost:5678/api/works/${photoId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                photoContainer.remove();
+            } else {
+                console.error('Erreur lors de la suppression de la photo');
+            }
+        })
+        .catch(error => console.error('Erreur lors de la suppression de la photo :', error));
+    }
 });

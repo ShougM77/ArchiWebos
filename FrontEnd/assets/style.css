@@ -221,6 +221,7 @@ footer nav ul {
 	display: none;
 	border: none;
 	background-color: #FFFEF8;
+	gap: 10px;
 	
 }
 .add-modifier {
@@ -284,4 +285,34 @@ footer nav ul {
     padding: 10px 38px;
     font-size: 16px;
     cursor: pointer;
+}
+.photo-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+	display: contents;
+}
+
+
+.fa-solid.fa-trash-can {
+	position: absolute;
+    color: white;
+    cursor: pointer;
+	background-color: #000;
+	padding: 3px;
+
+}
+.project-container {
+    position: relative;
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px; 
+    right: 5px;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    padding: 0;
 }
