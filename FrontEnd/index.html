@@ -67,18 +67,23 @@
 	<div id="addPhotoModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Ajout photo</h2>
+            <div class="title-add-photo">Ajout photo</div>
             <form id="addPhotoForm">
-                <label for="photoFile">Ajouter photo</label>
-                <input type="file" id="photoFile" name="file" accept="image/*" required>
-                
-                <label for="photoTitle">Titre</label>
-                <input type="text" id="photoTitle" name="title" required>
-                
-                <label for="photoCategory">Catégorie</label>
-                <input type="text" id="photoCategory" name="categoryId" required>
-              
-                <button type="submit">Valider</button>
+                <div class="photo-upload-container">
+                    <i class="fas fa-image fa-3x"></i>
+                    <button type="button" class="button-ajouter-photo">+ Ajouter photo</button>
+                    <p>jpg, png : 4mo max</p>
+                </div>
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="category">Catégorie</label>
+                    <input type="text" id="category" name="category">
+                </div>
+                <div class="border"></div>
+                <button type="submit" class="btn-valider">Valider</button>
             </form>
         </div>
     </div>

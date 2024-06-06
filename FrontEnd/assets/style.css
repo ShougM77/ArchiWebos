@@ -217,20 +217,28 @@ footer nav ul {
     font-weight: bold;
 	font-size: 16px;
 }
+.login {
+	font-family: monospace;
+}
+
+
 #modifier {
 	display: none;
 	border: none;
 	background-color: #FFFEF8;
-	gap: 10px;
 	
 }
+
 .add-modifier {
     display: flex;
     justify-content: center;
     align-items: center;
 	gap:20px;
+	cursor: pointer;
 }
-
+.fa-regular.fa-pen-to-square {
+	margin-right: 10px;
+}
 
 .modal {
     display: none;
@@ -244,14 +252,7 @@ footer nav ul {
     
 }
 
-.modal-content {
-    position: relative;
-    background-color: #fff;
-    padding: 50px 76px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-   
-}
+
 
 .modal-content img {
     width: 16%;
@@ -277,15 +278,7 @@ footer nav ul {
 	text-align: center;
 	
 }
-.button-ajouter-photo {
-    background-color: #1D6154;
-    color: white;
-    border: 2px solid white;
-    border-radius: 20px;
-    padding: 10px 38px;
-    font-size: 16px;
-    cursor: pointer;
-}
+
 .photo-container {
     position: relative;
     display: inline-block;
@@ -300,19 +293,144 @@ footer nav ul {
     cursor: pointer;
 	background-color: #000;
 	padding: 3px;
+	
 
 }
 .project-container {
     position: relative;
 }
 
-.delete-button {
-    position: absolute;
-    top: 5px; 
-    right: 5px;
-    background: none;
-    border: none;
-    color: red;
-    cursor: pointer;
-    padding: 0;
+#addPhotoForm {
+	display: grid;
 }
+
+.title-add-photo {
+	text-align: center;
+	font-size: 26px;
+    padding-bottom: 30px;
+}
+#addPhotoForm input[type="text"] {
+	BORDER: NONE;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
+	padding: 10px 1px;
+    margin: 16px 0px;
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 40px 100px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-header img {
+    border-radius: 50%;
+}
+
+.modal-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.photo-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #E8F1F6;
+    margin-bottom: 20px;
+}
+
+.photo-upload-container i {
+    color: #B9C5CC;
+    margin-bottom: 10px;
+	font-size: 4em;
+}
+
+.photo-upload-container .button-ajouter-photo {
+    background-color: #CBD6DC;
+    color: #306685;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.photo-upload-container p {
+    margin-top: 10px;
+    color: #444444;
+    font-size: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+
+.btn-valider {
+    background-color: #a7a7a7;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 72px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto 0;
+}
+.border {
+	border: 1px solid #B3B3B3;
+}
+
+
+
+
+
+
+

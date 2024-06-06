@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (authToken) {
         modifierButton.style.display = 'inline';
     }
-
+    
     // Changer le texte du lien de connexion et gérer la déconnexion
     const loginLink = document.getElementById('login-link');
     if (authToken) {
@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
         categories.add('Tous'); 
         filterMenu.innerHTML = ''; 
 
+        // Si l'utilisateur n'est pas authentifié, créer les boutons de filtre
+    if (!authToken) {
+
         // Bouton pour afficher tous les projets
         const allButton = document.createElement('button');
         allButton.textContent = 'Tous';
@@ -77,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 filterMenu.appendChild(button);
             }
         });
+    }
     }
 
     // Gestion de l'ouverture de la modale
@@ -141,6 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         const formData = new FormData(addPhotoForm);
+        const selectedFile = photoFileInput.files[0];
+    formData.append('image', selectedFile);
         //  ajouter les fichiers form data
 
         fetch('http://localhost:5678/api/works', {
@@ -151,8 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
             body: formData
         })
         .then(response => response.json())
-        .then(newProject => {
-            console.log('Nouveau projet ajouté:', newProject);
+        .then(newWork => {
+            console.log('Nouveau projet ajouté:', newWork);
             addPhotoModal.style.display = 'none';
             // Actualiser la liste des projets    
             fetch('http://localhost:5678/api/works') 
