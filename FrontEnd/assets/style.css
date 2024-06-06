@@ -260,12 +260,7 @@ footer nav ul {
 }
 
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
+
 .titlegaleriePhotos {
 	text-align: center;
 	padding-bottom: 40px;
@@ -319,16 +314,6 @@ footer nav ul {
 
 
 
-
-
-
-
-
-
-
-
-
-
 .modal {
     display: none;
     position: fixed;
@@ -376,7 +361,6 @@ footer nav ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     background-color: #E8F1F6;
     margin-bottom: 20px;
 }
@@ -385,6 +369,7 @@ footer nav ul {
     color: #B9C5CC;
     margin-bottom: 10px;
 	font-size: 4em;
+	margin-top: 20px;
 }
 
 .photo-upload-container .button-ajouter-photo {
@@ -401,6 +386,7 @@ footer nav ul {
     margin-top: 10px;
     color: #444444;
     font-size: 10px;
+	padding-bottom: 20px;
 }
 
 .form-group {
@@ -419,16 +405,49 @@ footer nav ul {
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 72px;
+    padding: 8px 100px;
     font-size: 16px;
     cursor: pointer;
     margin: 20px auto 0;
 }
+.btn-valider:hover {
+	background-color: #1D6154;
+}
 .border {
 	border: 1px solid #B3B3B3;
 }
+#imagePreview {
+    display: none; /* Masquer l'image de prévisualisation initialement */
+}
+#imagePreview {
+	width: 29%;
+    padding: 0;
+}
+.back {
+	position: absolute;
+    top: 15px;
+    left: 30px;
+    cursor: pointer;
+    font-size: 18px;
+}
+#category {
+	BORDER: NONE;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
+    padding: 10px 1px;
+    margin: 16px 0px;
+    width: 100%;
+}
+.btn-ajouter-photo {
+	background-color: #1D6154;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 60px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto 0;
 
-
+}
 
 
 

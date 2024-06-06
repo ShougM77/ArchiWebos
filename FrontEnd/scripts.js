@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const addButton = document.createElement('button');
         addButton.textContent = "Ajouter une photo";
-        addButton.classList.add('button-ajouter-photo');
+        addButton.classList.add('btn-ajouter-photo');
         addButton.addEventListener('click', function() {
             addPhotoModal.style.display = 'block'; 
         });
@@ -190,3 +190,64 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Erreur lors de la suppression de la photo :', error));
     }
 });
+
+// Sélection de l'input de fichier et de l'élément d'image pour la prévisualisation
+const photoFileInput = document.getElementById('fileInput');
+const imagePreview = document.getElementById('imagePreview');
+
+// Événement pour les changements de fichier
+photoFileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    // Vérification si un fichier est sélectionné
+    if (file) {
+        const reader = new FileReader();
+        // Chargement du contenu de l'image en tant qu'URL de données
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+            // Mise à jour de la source de l'image avec l'URL de l'image chargée
+            imagePreview.src = reader.result;
+            // Afficher l'image prévisualisée
+            imagePreview.style.display = 'block'; // Rendre l'image visible
+            // Masquer l'icône, le bouton et le texte supplémentaire
+            document.querySelector('.photo-upload-container i').style.display = 'none';
+            document.querySelector('.photo-upload-container label').style.display = 'none';
+            document.querySelector('.photo-upload-container p').style.display = 'none';
+        };
+    } else {
+        // Si aucun fichier n'est sélectionné, désactiver l'affichage de l'image de prévisualisation
+        imagePreview.style.display = 'none';
+        // Afficher l'icône, le bouton et le texte supplémentaire
+        document.querySelector('.photo-upload-container i').style.display = 'block';
+        document.querySelector('.photo-upload-container label').style.display = 'block';
+        document.querySelector('.photo-upload-container p').style.display = 'block';
+    }
+});
+// Récupération du bouton de retour dans la modal addPhotoModal
+const backButtonAddModal = document.getElementById('backButtonAddModal');
+
+// Gestionnaire d'événements pour le bouton de retour dans la modal addPhotoModal
+backButtonAddModal.addEventListener('click', function() {
+    addPhotoModal.style.display = 'none'; // Fermer la modal addPhotoModal
+    modal.style.display = 'block'; // Afficher la modal principale
+});
+// Récupération de l'élément de la liste déroulante des catégories
+const categoryDropdown = document.getElementById('category');
+
+// Récupération des catégories depuis votre API
+fetch('http://localhost:5678/api/categories')
+    .then(response => response.json())
+    .then(categories => {
+        // Effacer les options existantes, au cas où il y en aurait
+        categoryDropdown.innerHTML = '';
+
+        // Ajouter chaque catégorie à la liste déroulante
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.textContent = category.name;
+            option.value = category.id; // Utilisez l'ID comme valeur de l'option si nécessaire
+            categoryDropdown.appendChild(option);
+        });
+    })
+    .catch(error => console.error('Erreur lors de la récupération des catégories :', error));
+
+
