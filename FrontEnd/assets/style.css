@@ -94,6 +94,7 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -181,7 +182,13 @@ footer nav ul {
 	justify-content: flex-end;
 	padding: 2em;
 	background-color:white;
-	margin-top: 10%;
+}
+.footer-login {
+	bottom: 1%;
+    position: absolute;
+    right: 0;
+    width: -webkit-fill-available;
+
 }
 
 #filter-menu {
@@ -217,6 +224,9 @@ footer nav ul {
     font-weight: bold;
 	font-size: 16px;
 }
+#login-link:hover {
+	color: #B1663C;
+}
 .login {
 	font-family: monospace;
 }
@@ -240,17 +250,7 @@ footer nav ul {
 	margin-right: 10px;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    width: 80%;
-    max-width: 600px;
-    
-}
+
 
 
 
@@ -325,6 +325,7 @@ footer nav ul {
     width: 80%;
     max-width: 600px;
 }
+
 
 .modal-content {
     position: relative;
@@ -419,9 +420,7 @@ footer nav ul {
 	border: 1px solid #B3B3B3;
 }
 #imagePreview {
-    display: none; /* Masquer l'image de prévisualisation initialement */
-}
-#imagePreview {
+    display: none;
 	width: 29%;
     padding: 0;
 }

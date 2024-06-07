@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Erreur lors de la suppression de la photo :', error));
         } else {
-            // L'utilisateur a annulé la suppression
             console.log('Suppression annulée');
         }
     }
@@ -239,18 +238,17 @@ backButtonAddModal.addEventListener('click', function() {
 // Récupération de l'élément de la liste déroulante des catégories
 const categoryDropdown = document.getElementById('category');
 
-// Récupération des catégories depuis votre API
+// Récupération des catégories depuis API
 fetch('http://localhost:5678/api/categories')
     .then(response => response.json())
     .then(categories => {
-        // Effacer les options existantes, au cas où il y en aurait
         categoryDropdown.innerHTML = '';
 
         // Ajouter chaque catégorie à la liste déroulante
         categories.forEach(category => {
             const option = document.createElement('option');
             option.textContent = category.name;
-            option.value = category.id; // Utilisez l'ID comme valeur de l'option si nécessaire
+            option.value = category.id;
             categoryDropdown.appendChild(option);
         });
     })
