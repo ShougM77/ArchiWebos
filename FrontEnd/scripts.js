@@ -171,23 +171,29 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Erreur ajout du projet :', error));
     });
 
-    // Fonction pour gérer la suppression des photos
+    // Fonction pour gérer la suppression des photos avec demande de confirmation
     function deletePhoto(photoId, photoContainer) {
-        // Envoyer une requête DELETE à l'API pour supprimer la photo
-        fetch(`http://localhost:5678/api/works/${photoId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${authToken}`
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                photoContainer.remove();
-            } else {
-                console.error('Erreur lors de la suppression de la photo');
-            }
-        })
-        .catch(error => console.error('Erreur lors de la suppression de la photo :', error));
+        // Afficher une boîte de dialogue de confirmation
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette photo ?")) {
+            // Envoyer une requête DELETE à l'API pour supprimer la photo
+            fetch(`http://localhost:5678/api/works/${photoId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    photoContainer.remove();
+                } else {
+                    console.error('Erreur lors de la suppression de la photo');
+                }
+            })
+            .catch(error => console.error('Erreur lors de la suppression de la photo :', error));
+        } else {
+            // L'utilisateur a annulé la suppression
+            console.log('Suppression annulée');
+        }
     }
 });
 

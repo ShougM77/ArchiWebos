@@ -288,6 +288,8 @@ footer nav ul {
     cursor: pointer;
 	background-color: #000;
 	padding: 3px;
+    margin: 10px -25px;
+    font-size: xx-small;
 	
 
 }
