@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModalButtons = document.querySelectorAll('.close');
     const authToken = localStorage.getItem('authToken');
 
+    // Afficher la barre d'édition si un token d'authentification est présent
+    const editModeBar = document.getElementById('edit-mode-bar');
+    if (authToken) {
+        editModeBar.style.display = 'flex';
+    }
+
     // Afficher le bouton "modifier" si un token d'authentification est présent
     if (authToken) {
         modifierButton.style.display = 'inline';
@@ -252,6 +258,4 @@ fetch('http://localhost:5678/api/categories')
             categoryDropdown.appendChild(option);
         });
     })
-    .catch(error => console.error('Erreur lors de la récupération des catégories :', error));
-
-
+    
